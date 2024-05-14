@@ -36,7 +36,7 @@ The Crypto Comparison API allows you to integrate real-time cryptocurrency price
 + (MATIC) Polygon
 + (TRX) Tron
 
-A list of additional coins supported can be seen <a href="https://www.coingecko.com/en/all-cryptocurrencies">here</a>.
+A list of additional coins supported can be seen <a target="_blank" href="https://www.coingecko.com/en/all-cryptocurrencies">here</a>.
 
 <strong> Supported Currencies:</strong>
 
