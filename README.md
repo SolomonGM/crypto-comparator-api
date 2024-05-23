@@ -62,5 +62,5 @@ Exchange rates are fetched every 5 minutes from CoinGecko.
 
 **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/crypto-usd-comparator.git
+   git clone https://github.com/SolomonGM/crypto-comparator-api.git
    cd crypto-usd-comparator
