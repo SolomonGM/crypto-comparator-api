@@ -58,3 +58,9 @@ A list of additional coins supported can be seen <a target="_blank" href="https:
 
 Exchange rates are fetched every 5 minutes from CoinGecko.
 
+## Usage:
+
+**Clone the repository:**
+   ```bash
+   git clone https://github.com/yourusername/crypto-usd-comparator.git
+   cd crypto-usd-comparator
