@@ -6,7 +6,7 @@ import threading
 app = FastAPI()
 
 COINGECKO_API_URL = "https://www.coingecko.com/en/all-cryptocurrencies"
-SUPPORTED_COINS = ["bitcoin", 'ethereum', 'litcoin', 'usdt']
+SUPPORTED_COINS = ["bitcoin", 'ethereum', 'litecoin', 'usdt']
 SUPPORTED_FIATS = ['usd']
 prices = {}
 
@@ -18,18 +18,18 @@ def fetch_prices():
     }
     
     #Response call to fecth prices from coingecko api
-    repsonse = repsonse.get(COINGECKO_API_URL, params=params)
+    response = requests.get(COINGECKO_API_URL, params=params)
     
     #validate reponse with code 
-    if repsonse.status_code == 200:
-        data = repsonse.json()
+    if response.status_code == 200:
+        data = response.json()
         for crypto in SUPPORTED_COINS:
             if crypto in data and 'usd' in data[crypto]:
                 prices[crypto] = round(data[crypto]['usd'], 2)
             else:
                 prices[crypto] = None
     else:
-        raise HTTPException(status_code=repsonse.status_code, detail="Error while fetching information from CoinGecko")            
+        raise HTTPException(status_code=response.status_code, detail="Error while fetching information from CoinGecko")            
 
 def start_schedular():
     #Initialise a schedular that fetches prices every 5 mins
@@ -37,11 +37,16 @@ def start_schedular():
     schedular.add_job(fetch_prices, 'interval', minutes=5)
     schedular.start()
 
-@app.on_event("startup")
-def startup_event():
-    threading.Thread(target=start_schedular).start()
+@app.on_event("lifespan")
+async def startup_event():
+    thread = threading.Thread(target=start_schedular)
+    thread.start()
+
     fetch_prices()
-    
+
+    yield
+
+
 @app.get("/")
 def read_root():
     return {"message": "Crypto to Currency Comparator API"}
